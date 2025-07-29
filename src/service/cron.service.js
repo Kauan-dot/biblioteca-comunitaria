@@ -13,10 +13,8 @@ cron.schedule('40 * * * *', async () => {
     loans.forEach(async (loan) => {
         const dueDate = moment(loan.dueDate).startOf("day");
         const reminderDueDate = moment(dueDate).subtract(1, "days");
-        const userLoan = await userRepository.findUserByIdRepository(loan.userId)
-        const bookLoan = await bookepository.findBookByIdRepository(loan.bookId)
         if(today.isSame(reminderDueDate)) {
-            sendEmail(userLoan.email, bookLoan.title, loan.dueDate)
+            sendEmail(loans.email, loans.title, loan.dueDate)
         }
     })
 })
